@@ -1,6 +1,9 @@
-### preoop_2020
+## Podstawy Programowania Obiektowego
 
-##### przydatne pliki
+Kod napisany na laby u EOM. Korzystalismy z serwisu `repl.it`.
+Semestr 3, rok 2020.
+
+### przydatne pliki
 
 `clean.sh`:
 ```bash
