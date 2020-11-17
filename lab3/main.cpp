@@ -52,10 +52,10 @@ int main() {
   print (&portugalCity);
 
   const MapDist d = distance(*nyc, *sydney);
-  std::cout <<"Odleglosci między NYC i Sydney: \nRoznica dlugosci: " << d.longitude << "\nRoznica szerokosci: "<< d.latitude << "\nOdleglosc: "<<angularDistance(d) << std::endl;
+  std::cout <<"Odleglosci miedzy NYC i Sydney: \nRoznica dlugosci: " << d.longitude << "\nRoznica szerokosci: "<< d.latitude << "\nOdleglosc: "<<angularDistance(d) << std::endl;
 
   const MapPoint& cl = closestPlace(krakow, nyc, sydney);
-  std::cout << "Bliżej Krakowa jest " << getName(cl) << std::endl;
+  std::cout << "Blizej Krakowa jest " << getName(cl) << std::endl;
 
   MapPoint mp = inTheMiddle(nyc, sydney, "Kenia");
   print(&mp);

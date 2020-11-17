@@ -24,22 +24,19 @@ bool PeselValidator(char string[11], int (&output)[11])
         if(isLeap)
             dayCount[1] += 1; //jesli przestepny, to luty ma 29 dni
 
-        if(tempDay > dayCount[getMonth(output)])
+        if(tempDay > dayCount[getMonth(output) - 1])
             return false;
-        
 
         //liczba ewidencyjna K:
         int sumaWag = getCtrlNumber(output);
         if(sumaWag != output[10]) // jesli K sie nie zgadza to false
             return false;
         
-
         //wszystkie warunki sprawdzone, nie ma bledu
         return true;
     }
     else //liczba pesel jest za krotka
     {
-        
         return false;
     }
 }
@@ -48,7 +45,7 @@ void printPesel(int tab[11])
 {
     for(int i=0; i<11; i++)
         std::cout<<tab[i];
-    std::cout<<"/n";
+    std::cout<<" ";
 }
 
 int getCtrlNumber(int tab[11])
@@ -75,7 +72,7 @@ std::string sex(int tab[11])
 
 int getDay(int tab[11])
 {
-    return 10*tab[4]*tab[5];
+    return 10*tab[4]+tab[5];
 }
 
 int getMonth(int tab[11])
@@ -112,11 +109,5 @@ bool leapYear(int year)
 
 int getPeselLength(char tab[11])
 {
-    int suma=0;
-    for(int i=0; i<11; i++)
-    {
-        if(tab[i]>='0' && tab[i]<='9')
-            suma++;
-    }
-    return suma;
+    return strlen(tab);
 }
