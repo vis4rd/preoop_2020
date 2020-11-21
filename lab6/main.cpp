@@ -57,9 +57,23 @@ int main()
     
     // Czyszczenie katalogów
     std::cout << "*** Czyszczenie ***" << std::endl;
-    //clearDir(&jan); // usuwanie gałęzi - do ewentualnego zakomentowania i uzupełnienia po zajęciach jak braknie czasu
+    clearDir(&jan); // usuwanie gałęzi - do ewentualnego zakomentowania i uzupełnienia po zajęciach jak braknie czasu
     printDir(root);
     clearDir(&root);
+
+    /*  ########### UWAGA ###########
+        Ponizsze dwie dealokacje sa niepotrzebne, a wrecz nieprawidlowe
+        z tego wzgledu, ze pamiec zaalokowana w tych obszarach pamieci
+        powinna byc i jest zwalniana w funkcji clearDir(MyDir *).
+
+        Z tego tez wzgledu przy sprawdzaniu programu valgrindem pojawia
+        sie blad:
+            `total heap usage: 17 allocs, 19 frees, 74,216 bytes allocated`
+        , czyli dwa zwolnienia za duzo, ktore maja zamiar zwolnic pamiec 
+        o rozmiarze 0 bajtow.
+
+        - przypis studenta
+        ##############################*/
     delete home;
     delete rok2;
     
