@@ -5,11 +5,11 @@
 
 /**
  * struktura przechowujaca i obslugujaca tablice charow
- * @tparam lista separatorow dzielacych tablice na slowa
- * @tparam tablica charow przechowujaca tekst
- * @tparam wskaznik na nastepny niepodzielony jeszcze fragment tekstu
- * @tparam wskaznik na poczatek tekstu
- * @tparam wskaznik na koniec tekstu
+ * @field lista separatorow dzielacych tablice na slowa
+ * @field tablica charow przechowujaca tekst
+ * @field wskaznik na nastepny niepodzielony jeszcze fragment tekstu
+ * @field wskaznik na poczatek tekstu
+ * @field wskaznik na koniec tekstu
  */
 typedef struct MyString
 {
