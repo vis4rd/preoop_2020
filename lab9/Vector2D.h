@@ -3,13 +3,15 @@
 #include <iostream>
 #include <cmath>
 
+#define M_PI 3.1415926535
+
 class Vector2D
 {
 public:
     /** konstruktor
      *  @param nazwa wektora
      */
-    Vector2D(std::string name = "Vx");
+    Vector2D(std::string name = "");
     /** konstruktor kopiujacy
      *  @param oryginal
      */
@@ -52,12 +54,12 @@ public:
     /** Iloczyn skalarny wektorow
      *  @param drugi wektor brany do iloczynu
      */
-    double dot(Vector2D two) const;
+    double dot(const Vector2D &two) const;
 
     /** Dodawanie wektorow
      *  @param drugi wektor brany do sumy
      */
-    Vector2D add(Vector2D two) const;
+    Vector2D add(const Vector2D &two) const;
 
     static int count;
 protected:
@@ -70,6 +72,7 @@ private:
     *  @param wspolrzedna y
     */
     Vector2D(std::string name, double x, double y); //prywatny konstruktor
+    Vector2D(double x, double y); //prywatny konstruktor
 
     std::string name;
     double _x;
