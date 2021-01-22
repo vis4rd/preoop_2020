@@ -19,7 +19,7 @@ String:: String(const String &origin)
 String::String(String &&source)
 {
     this->size = std::__exchange(source.size, 0);
-    this->text = std::move(source.text);
+    this->text = std::__exchange(source.text, nullptr);
 }
 
 String::~String()
@@ -38,42 +38,34 @@ void String::print(const char* prefix) const
     std::cout << prefix << this->text << std::endl;
 }
 
-String &String::operator+ (String &right) const
+String String::operator+ (const char other) const
 {
-    char temp_text[this->size + right.size];
-    strcpy(temp_text, this->text);
-    strcat(temp_text, right.text);
-    String result(temp_text);
-    return result;
+	char *temp = new char[2];
+	temp[0] = other; temp[1] = '\0';
+	String result(temp);
+	delete temp;
+	return result;
 }
 
-String &String::operator+ (const char *right) const
+String String::operator+ (const char other[]) const
 {
-    char temp_text[this->size + strlen(right)];
-    strcpy(temp_text, this->text);
-    strcat(temp_text, right);
-    String result(temp_text);
-    return result;
+	String result;
+	result.size = this->getSize() + strlen(other);
+	result.text = new char[ result.size ];
+	strcpy(result.text, this->getText());
+	strcat(result.text, other);
+	return result;
 }
 
-String &String::operator+ (const char right) const
+String String::operator+ (const String &second) const
 {
-    char temp_text[this->size + 1];
-    strcpy(temp_text, this->text);
-    temp_text[this->size] = right;
-    String result(temp_text);
-    return result;
+	String result;
+	result.size = this->getSize() + second.getSize();
+	result.text = new char[ result.size ];
+	strcpy(result.text, this->getText());
+	strcat(result.text, second.getText());
+	return result;
 }
-
-// String String::operator= (String right)
-// {
-//     if(this->text != nullptr)
-//         delete[] this->text;
-
-//     this->text = std::move(right.text);
-//     this->size = std::__exchange(right.size, 0);
-//     return *this;
-// }
 
 String &String::operator= (const char *right)
 {
@@ -87,7 +79,7 @@ String &String::operator= (const char *right)
     return *this;
 }
 
-String String::operator* (int right)
+String &String::operator* (int right)
 {
     char *temp = nullptr; 
     strcpy(temp, this->text);
@@ -123,17 +115,26 @@ void String::setText(char result[])
 {
     if(this->text != nullptr)
         delete this->text;
-    int new_len = strlen(result);
-    this->text = new char[new_len];
+    if(this->size != static_cast<int>(strlen(result)))
+    {
+    	this->size = strlen(result);
+    }
+    
+    this->text = new char[this->size];
     strcpy(this->text, result);
-    this->size = new_len;
 }
 
-String operator+ (const char left[], String right)
+void String::setSize(int size)
 {
-    char new_text[strlen(left) + right.getSize()];
-    strcat(new_text, left);
-    strcat(new_text, right.getText());
-    String result(new_text);
-    return result;
-}   
+	if(size < 0)
+		size = -size;
+	this->size = size;
+}
+
+//funkcje
+
+String operator+ (const char first[], const String second)
+{
+	String result(second + first); //200iq
+	return result;
+}

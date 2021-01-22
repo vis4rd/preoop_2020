@@ -9,7 +9,7 @@ namespace mystring
 class String
 {
 public:
-    //String();
+    String() = default;
     explicit String(const char *input); //zwykly konstruktor
     String(const String &origin);
     String(String &&source);
@@ -19,18 +19,19 @@ public:
 
     void print(const char* prefix) const;
 
-    String &operator+ (String &right) const;
-    String &operator+ (const char *right) const;
-    String &operator+ (const char right) const;
-    //String operator= (String right);
+    String operator+ (const char other) const;
+    String operator+ (const char other[]) const;
+	String operator+ (const String &second) const;
+    
     String &operator= (const char *right);
-    String operator* (int right); 
+    String &operator* (int right); 
     bool operator== (const String &right);
     bool operator== (const char *data);
 
     const char *getText() const;
     const int getSize() const;
     void setText(char result[]);
+    void setSize(int size);
 
 protected:
 
@@ -39,7 +40,7 @@ private:
     int size;
 };
 
-String operator+ (const char left[], String right);
+String operator+ (const char first[], const String second);
 
 }
 
